@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="ctproducer:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ctproducer_jar</output-path>
+    <root id="root">
+      <element id="archive" name="ctproducer.jar">
+        <element id="module-output" name="ctproducer" />
+        <element id="module-output" name="ctcommon" />
+      </element>
+    </root>
+  </artifact>
+</component>

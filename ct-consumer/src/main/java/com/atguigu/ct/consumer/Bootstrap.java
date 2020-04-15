@@ -7,9 +7,8 @@ import java.io.IOException;
 
 /**
  * 启动消费者
- *         //使用Kafka消费者获取flume采集的数据
- *
- *         //将数据存储到hbase中去
+ * //使用Kafka消费者获取flume采集的数据
+ * //将数据存储到hbase中去
  */
 public class Bootstrap {
     public static void main(String[] args) throws IOException {

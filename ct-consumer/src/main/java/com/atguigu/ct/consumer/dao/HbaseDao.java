@@ -7,6 +7,9 @@ import com.atguigu.ct.consumer.bean.Calllog;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.util.Bytes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Hbase数据访问对象
  */
@@ -19,7 +22,11 @@ public class HbaseDao extends BaseDao {
         //创建命名空间
         createNamespaceNX(Names.NAMESPACE.getValue());
         //创建表
-        createTableXX(Names.TABLE.getValue(), ValueConstant.REGION_COUNT, Names.CF_CALLER.getValue());
+        createTableXX(Names.TABLE.getValue(),
+                "com.atguigu.ct.consumer.coprocessor.InsertCalleeCoprocessor",
+                ValueConstant.REGION_COUNT,
+                Names.CF_CALLER.getValue(),
+                Names.CF_CALLEE.getValue());
         end();
     }
 
@@ -67,9 +74,10 @@ public class HbaseDao extends BaseDao {
         //           在rowkey前增加随机数
         //     字符串反转: 时间戳或者电话号码
         //     计算分区号:类似hashMap
-        // rowkey = regionNum + call1 + time + call2 + duration
-        String rowkey = genregionNum(call1, calltime) + "_" + call1 + "_" + calltime + "_" + call2 + "_" + duration;
+        // rowkey = regionNum + call1 + time + call2 + duration + 1
+        String rowkey = genregionNum(call1, calltime) + "_" + call1 + "_" + calltime + "_" + call2 + "_" + duration + "_1";
 
+        //主叫用户
         Put put = new Put(Bytes.toBytes(rowkey));
 
         byte[] family = Bytes.toBytes(Names.CF_CALLER.getValue());
@@ -78,8 +86,16 @@ public class HbaseDao extends BaseDao {
         put.addColumn(family, Bytes.toBytes("call2"), Bytes.toBytes(call2));
         put.addColumn(family, Bytes.toBytes("calltime"), Bytes.toBytes(calltime));
         put.addColumn(family, Bytes.toBytes("duration"), Bytes.toBytes(duration));
+        put.addColumn(family, Bytes.toBytes("flag"), Bytes.toBytes("1"));
+
+//        String calleeRowkey = genregionNum(call2, calltime) + "_" + call2 + "_" + calltime + "_" + call1 + "_" + duration +"_0";
 
         //3.保存数据
-        putData(Names.TABLE.getValue(), put);
+        List<Put> puts = new ArrayList<Put>();
+        puts.add(put);
+//        puts.add(calleePut);
+
+        putData(Names.TABLE.getValue(), puts);
+
     }
 }

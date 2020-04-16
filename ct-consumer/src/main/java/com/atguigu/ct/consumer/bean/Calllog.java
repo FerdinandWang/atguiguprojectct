@@ -20,6 +20,8 @@ public class Calllog {
     @Column(family = "caller")
     private String duration;
 
+    private String flag = "1";
+
     public Calllog() {
 
     }

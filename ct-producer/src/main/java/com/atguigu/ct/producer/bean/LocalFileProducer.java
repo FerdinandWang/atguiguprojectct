@@ -72,7 +72,7 @@ public class LocalFileProducer implements Producer {
                 out.write(calllog);
 
                 //休眠0.5秒
-                Thread.sleep(500);
+                Thread.sleep(1500);
             }
         } catch (Exception e) {
             e.printStackTrace();

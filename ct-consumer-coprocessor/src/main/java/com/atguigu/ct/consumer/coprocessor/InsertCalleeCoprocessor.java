@@ -21,7 +21,6 @@ import java.io.IOException;
  * 1.创建类
  * 2.让表知道协处理类(和表有关联),在表的描述器中添加该类
  * 3.将项目打成jar包发布到hbase/lib中(关联的jar包也需要发布),并且需要分发到每个节点
- *
  */
 public class InsertCalleeCoprocessor extends BaseRegionObserver {
     /**
@@ -45,7 +44,7 @@ public class InsertCalleeCoprocessor extends BaseRegionObserver {
         //1_13312341234_20190101_13212341234_0222_1
         String values[] = rowkey.split("_");
 
-//        InsertCalleeCoprocessor.CoprocessorDao coprocessorDao = new InsertCalleeCoprocessor(). new CoprocessorDao();
+//      InsertCalleeCoprocessor.CoprocessorDao coprocessorDao = new InsertCalleeCoprocessor(). new CoprocessorDao();
         CoprocessorDao coprocessorDao = new CoprocessorDao();
 
         String call1 = values[1];

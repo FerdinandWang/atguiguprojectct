@@ -26,3 +26,8 @@ ct-common/target/*
 ct-consumer/target/*
 ct-producer/target/*
 ct-producer/target/classes/META-INF/MANIFEST.MF
+ct-analysis/src/main/java/META-INF/MANIFEST.MF
+ct-analysis/src/main/resources/META-INF/MANIFEST.MF
+ct-analysis/target/classes/META-INF/MANIFEST.MF
+pom.xml
+pom.xml
